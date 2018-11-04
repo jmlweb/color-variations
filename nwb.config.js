@@ -7,7 +7,7 @@ module.exports = {
       externals: {},
     },
   },
-  polyfill: false,
+  // polyfill: false,
   babel: {
     cherryPick: ['ramda', 'polished'],
   },
