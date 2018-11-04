@@ -3,8 +3,12 @@ module.exports = {
   npm: {
     esModules: true,
     umd: {
-      global: 'colorExtender',
-      externals: {}
-    }
-  }
-}
+      global: 'colorVariations',
+      externals: {},
+    },
+  },
+  polyfill: false,
+  babel: {
+    cherryPick: ['ramda', 'polished'],
+  },
+};

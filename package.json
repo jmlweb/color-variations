@@ -1,7 +1,7 @@
 {
-  "name": "color-extender",
-  "version": "1.0.0",
-  "description": "Describe color-extender here",
+  "name": "color-variations",
+  "version": "0.0.1",
+  "description": "Create color variations for your theme with no pain",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -18,12 +18,33 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
+    "polished": "^2.3.0",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "nwb": "0.23.x"
   },
-  "author": "",
-  "homepage": "",
+  "author": "José Manuel Lucas",
+  "homepage": "https://github.com/jmlweb/color-variations#readme",
   "license": "MIT",
-  "repository": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmlweb/color-variations.git"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "keywords": [
+    "color",
+    "variations",
+    "theme",
+    "design"
+  ],
+  "bugs": {
+    "url": "https://github.com/jmlweb/color-variations/issues"
+  }
 }
