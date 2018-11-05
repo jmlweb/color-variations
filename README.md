@@ -19,7 +19,7 @@ Based on [polished](https://polished.js.org) color transformation functions.
 
 ## Getting started
 
-#### ES6
+### es6
 
 ```js
 import colorVariations from 'color-variations';
@@ -39,7 +39,7 @@ console.log(colors.redTint[3]); // '#ff4c4c'
 console.log(colors.greenSaturate[3]); // 'rgba(72,247,163,0.9)'
 ```
 
-#### node
+### node
 
 ```js
 const colorVariations = require('color-variations');
@@ -47,7 +47,7 @@ const colorVariations = require('color-variations');
 //... The same as above
 ```
 
-#### browser
+### browser
 
 ```html
 <!-- Inject this script in your HTML -->
@@ -66,7 +66,7 @@ or
 
 ## Options
 
-#### steps
+### steps
 
 Defines the number of variations (apart from 0) generated.
 
