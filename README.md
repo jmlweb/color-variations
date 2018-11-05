@@ -15,15 +15,9 @@
 
 Create color variations for your theme with no pain.
 
-## Install
+## Getting started
 
-`yarn add color-variations`
-
-or
-
-`npm install color-variations`
-
-## Use
+#### ES6
 
 ```js
 import colorVariations from 'color-variations';
@@ -42,3 +36,61 @@ console.log(colors.blackLighten[3]); // '#4d4d4d'
 console.log(colors.redTint[3]); // '#ff4c4c'
 console.log(colors.greenSaturate[3]); // 'rgba(72,247,163,0.9)'
 ```
+
+#### node
+
+```js
+const colorVariations = require('color-variations');
+
+//... The same as above
+```
+
+#### browser
+
+```html
+<!-- Inject this script in your HTML -->
+<script src="https://unpkg.com/color-variations/umd/color-variations.min.js"></script>
+```
+
+The variable exported is called `colorVariations`.
+
+## Installing
+
+`yarn add color-variations`
+
+or
+
+`npm install color-variations`
+
+## Options
+
+#### steps
+
+Defines the number of variations (apart from 0) generated.
+
+For 10 steps the scale will be `[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]`.
+
+For 5 steps `[0, 0.2, 0.4, 0.6, 0.8, 1]`.
+
+Pass the options as an object for the second argument of `colorVariations`.
+
+```js
+const baseColors = {
+  black: '#000',
+  red: '#ff0000',
+  // ...
+};
+
+const opts = {
+  steps: 10,
+};
+
+const colors = colorVariations(baseColors, opts);
+```
+
+## Todo
+
+- [x] Proper documentation
+- [ ] Human testing
+- [ ] Improve options (include only functions provided, exclude functions provided, exclude useless color variations like darken for black...)
+- [ ] Support for complex structures (objects of arrays of objects of...)
