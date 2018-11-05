@@ -1,14 +1,10 @@
 import {
-  keys, flip, inc, map, multiply, pipe, reduce, times,
+  keys, flip, inc, map, multiply, pipe, reduce, times, type,
 } from 'ramda';
 
 import colorFns from './colorFns';
 import {
-  getScale,
-  cleanDecimals,
-  capitalize,
-  getNames,
-  getFilteredFns,
+  getScale, cleanDecimals, capitalize, getNames, getFilteredFns,
 } from './utils';
 
 const DEFAULT_OPTS = {
@@ -52,7 +48,9 @@ const generateColors = ({ colors, steps, fns }) => reduce(
   (acc, curr) => ({
     ...acc,
     [curr]: colors[curr],
-    ...getVariationsForColor(curr, colors[curr], steps, fns),
+    ...(type(colors[curr]) === 'String'
+      ? getVariationsForColor(curr, colors[curr], steps, fns)
+      : {}),
   }),
   {},
   keys(colors),

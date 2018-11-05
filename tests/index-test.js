@@ -34,20 +34,20 @@ describe('colorExtender', () => {
         red,
         blue,
         green,
-        // mainGradient: {
-        //   red,
-        //   green,
-        // },
+        mainGradient: {
+          red,
+          green,
+        },
       }),
     ).toEqual({
       ...blackResults,
       ...redResults,
       ...blueResults,
       ...greenResults,
-      // mainGradient: {
-      //   ...redResults,
-      //   ...greenResults,
-      // },
+      mainGradient: {
+        red,
+        green,
+      },
     });
   });
 });
