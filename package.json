@@ -1,14 +1,22 @@
 {
   "name": "color-variations",
-  "version": "0.0.1",
   "description": "Create color variations for your theme with no pain",
+  "author": "José Manuel Lucas",
+  "license": "MIT",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "files": [
-    "es",
-    "lib",
-    "umd"
-  ],
+  "homepage": "https://github.com/jmlweb/color-variations#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmlweb/color-variations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmlweb/color-variations/issues"
+  },
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "build": "nwb build-web-module",
     "clean": "nwb clean-module",
@@ -17,23 +25,11 @@
     "test:coverage": "nwb test --coverage",
     "test:watch": "nwb test --server"
   },
-  "dependencies": {
-    "polished": "^2.3.0",
-    "ramda": "^0.25.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "nwb": "0.23.x"
-  },
-  "author": "José Manuel Lucas",
-  "homepage": "https://github.com/jmlweb/color-variations#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jmlweb/color-variations.git"
-  },
+  "files": [
+    "es",
+    "lib",
+    "umd"
+  ],
   "directories": {
     "lib": "lib",
     "test": "tests"
@@ -44,7 +40,14 @@
     "theme",
     "design"
   ],
-  "bugs": {
-    "url": "https://github.com/jmlweb/color-variations/issues"
+  "dependencies": {
+    "polished": "^2.3.0",
+    "ramda": "^0.25.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "nwb": "0.23.x"
   }
 }
