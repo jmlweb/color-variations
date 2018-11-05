@@ -5,13 +5,13 @@
 [![Coveralls][coveralls-badge]][coveralls]
 
 [build-badge]: https://img.shields.io/travis/jmlweb/color-variations/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+[build]: https://travis-ci.org/jmlweb/color-variations
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+[npm-badge]: https://img.shields.io/npm/v/color-variations.png?style=flat-square
+[npm]: https://www.npmjs.org/package/color-variations
 
 [coveralls-badge]: https://img.shields.io/coveralls/jmlweb/color-variations/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+[coveralls]: https://coveralls.io/github/jmlweb/color-variations
 
 Create color variations for your theme with no pain.
 
