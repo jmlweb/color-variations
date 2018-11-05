@@ -3,7 +3,7 @@
   "description": "Create color variations for your theme with no pain",
   "author": "José Manuel Lucas",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/index.js",
   "module": "es/index.js",
   "homepage": "https://github.com/jmlweb/color-variations#readme",

@@ -15,6 +15,8 @@
 
 Create color variations for your theme with no pain.
 
+Based on [polished](https://polished.js.org) color transformation functions.
+
 ## Getting started
 
 #### ES6
@@ -74,6 +76,14 @@ For 5 steps `[0, 0.2, 0.4, 0.6, 0.8, 1]`.
 
 Pass the options as an object for the second argument of `colorVariations`.
 
+### includedFns
+
+The color functions included (all by default)
+
+### excludedFns
+
+The color functions excluded (no one by default)
+
 ```js
 const baseColors = {
   black: '#000',
@@ -91,6 +101,11 @@ const colors = colorVariations(baseColors, opts);
 ## Todo
 
 - [x] Proper documentation
-- [ ] Human testing
-- [ ] Improve options (include only functions provided, exclude functions provided, exclude useless color variations like darken for black...)
+- [x] Human testing
+- [x] Improve options (include only functions provided, exclude functions provided...)
 - [ ] Support for complex structures (objects of arrays of objects of...)
+- [ ] Move away from polished
+- [ ] Deal with collisions (having a color with name equals to a generated variation)
+- [ ] Exclude useless color variations like darken for black (with option)
+- [ ] Options (path) for included/excluded colors for variations
+- [ ] Custom variations

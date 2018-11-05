@@ -1,19 +1,23 @@
 import {
-  keys,
-  flip,
-  inc,
-  map,
-  multiply,
-  pipe,
-  reduce,
-  times,
+  keys, flip, inc, map, multiply, pipe, reduce, times,
 } from 'ramda';
 
 import colorFns from './colorFns';
+import {
+  getScale,
+  cleanDecimals,
+  capitalize,
+  getNames,
+  getFilteredFns,
+} from './utils';
 
-import { getScale, cleanDecimals, capitalize } from './utils';
+const DEFAULT_OPTS = {
+  steps: 10,
+  includedFns: getNames(colorFns),
+  excludedFns: [],
+};
 
-const buildSourceArr = (steps) => {
+export const buildSourceArr = (steps) => {
   const scale = getScale(steps);
   return pipe(
     inc,
@@ -31,7 +35,7 @@ const getVariationValues = (fn, colorValue, steps) => {
   return map(v => fn(colorValue, v), sourceArr);
 };
 
-const getVariationsForColor = (colorKey, colorValue, steps) => reduce(
+const getVariationsForColor = (colorKey, colorValue, steps, fns = colorFns) => reduce(
   (acc, curr) => {
     const fn = curr.reversed ? flip(curr.fn) : curr.fn;
     const colorVariationKey = `${colorKey}${capitalize(curr.name)}`;
@@ -41,17 +45,23 @@ const getVariationsForColor = (colorKey, colorValue, steps) => reduce(
     };
   },
   {},
-  colorFns,
+  fns,
 );
 
-const colorExtender = (colors, opts = { steps: 10 }) => reduce(
+const generateColors = ({ colors, steps, fns }) => reduce(
   (acc, curr) => ({
     ...acc,
     [curr]: colors[curr],
-    ...getVariationsForColor(curr, colors[curr], opts.steps),
+    ...getVariationsForColor(curr, colors[curr], steps, fns),
   }),
   {},
   keys(colors),
 );
+
+const colorExtender = (colors, opts = DEFAULT_OPTS) => {
+  const { includedFns, excludedFns, steps } = opts;
+  const filteredFns = getFilteredFns({ includedFns, excludedFns })(colorFns);
+  return generateColors({ colors, steps, fns: filteredFns });
+};
 
 export default colorExtender;
