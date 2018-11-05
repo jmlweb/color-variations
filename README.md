@@ -47,7 +47,7 @@ const colorVariations = require('color-variations');
 //... The same as above
 ```
 
-### browser
+### umd
 
 ```html
 <!-- Inject this script in your HTML -->
