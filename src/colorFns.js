@@ -1,6 +1,10 @@
-import {
-  darken, lighten, saturate, desaturate, rgba, shade, tint,
-} from 'polished';
+import darken from 'polished/lib/color/darken';
+import lighten from 'polished/lib/color/lighten';
+import saturate from 'polished/lib/color/saturate';
+import desaturate from 'polished/lib/color/desaturate';
+import rgba from 'polished/lib/color/rgba';
+import shade from 'polished/lib/color/shade';
+import tint from 'polished/lib/color/tint';
 
 const colorFns = [
   {
