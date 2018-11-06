@@ -46,6 +46,14 @@ describe('colorExtender', () => {
         fns: [colorFns[0]],
       }),
     ).toEqual(grayArrResults);
+    expect(
+      generateColor({
+        name: 'foo',
+        value: 2,
+        steps: 10,
+        fns: [colorFns[0]],
+      }),
+    ).toEqual({ foo: 2 });
   });
   it('colorExtender', () => {
     expect(colorExtender({ black })).toEqual(blackResults);

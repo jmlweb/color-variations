@@ -49,7 +49,7 @@ const getVariationValues = (fn, colorValue, steps) => {
   return map(partialedFn, sourceArr);
 };
 
-const getVariationsForColor = (colorKey, colorValue, steps, fns = colorFns) => {
+const getVariationsForColor = (colorKey, colorValue, steps, fns) => {
   const cleanKey = prefixKeyIfNeeded(colorKey);
   return reduce(
     (acc, curr) => {
