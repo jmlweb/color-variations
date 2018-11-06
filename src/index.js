@@ -1,10 +1,27 @@
 import {
-  keys, flip, inc, map, multiply, pipe, reduce, times, type,
+  cond,
+  either,
+  inc,
+  keys,
+  map,
+  multiply,
+  partial,
+  pipe,
+  reduce,
+  T,
+  times,
 } from 'ramda';
 
 import colorFns from './colorFns';
 import {
-  getScale, cleanDecimals, capitalize, getNames, getFilteredFns,
+  getScale,
+  cleanDecimals,
+  capitalize,
+  getNames,
+  getFilteredFns,
+  prefixKeyIfNeeded,
+  extractFnInCorrectOrder,
+  valueIsOfType,
 } from './utils';
 
 const DEFAULT_OPTS = {
@@ -27,30 +44,75 @@ export const buildSourceArr = (steps) => {
 };
 
 const getVariationValues = (fn, colorValue, steps) => {
+  const partialedFn = partial(fn, [colorValue]);
   const sourceArr = buildSourceArr(steps);
-  return map(v => fn(colorValue, v), sourceArr);
+  return map(partialedFn, sourceArr);
 };
 
-const getVariationsForColor = (colorKey, colorValue, steps, fns = colorFns) => reduce(
-  (acc, curr) => {
-    const fn = curr.reversed ? flip(curr.fn) : curr.fn;
-    const colorVariationKey = `${colorKey}${capitalize(curr.name)}`;
-    return {
-      ...acc,
-      [colorVariationKey]: getVariationValues(fn, colorValue, steps),
-    };
-  },
-  {},
-  fns,
-);
+const getVariationsForColor = (colorKey, colorValue, steps, fns = colorFns) => {
+  const cleanKey = prefixKeyIfNeeded(colorKey);
+  return reduce(
+    (acc, curr) => {
+      const fn = extractFnInCorrectOrder(curr);
+      const colorVariationKey = `${cleanKey}${capitalize(curr.name)}`;
+      return {
+        ...acc,
+        [colorVariationKey]: getVariationValues(fn, colorValue, steps),
+      };
+    },
+    {},
+    fns,
+  );
+};
+
+export const generateColor = (props) => {
+  const generateForString = ({
+    name, value, steps, fns,
+  }) => ({
+    [name]: value,
+    ...getVariationsForColor(name, value, steps, fns),
+  });
+
+  const generateForOther = ({ name, value }) => ({
+    [name]: value,
+  });
+
+  const generateForObject = ({
+    name, value, steps, fns,
+  }) => ({
+    [name]: pipe(
+      keys,
+      reduce(
+        (acc, curr) => ({
+          ...acc,
+          ...generateColor({
+            name: curr,
+            value: value[curr],
+            steps,
+            fns,
+          }),
+        }),
+        {},
+      ),
+    )(value),
+  });
+
+  return cond([
+    [valueIsOfType('String'), generateForString],
+    [either(valueIsOfType('Object'), valueIsOfType('Array')), generateForObject],
+    [T, generateForOther],
+  ])(props);
+};
 
 const generateColors = ({ colors, steps, fns }) => reduce(
   (acc, curr) => ({
     ...acc,
-    [curr]: colors[curr],
-    ...(type(colors[curr]) === 'String'
-      ? getVariationsForColor(curr, colors[curr], steps, fns)
-      : {}),
+    ...generateColor({
+      name: curr,
+      value: colors[curr],
+      steps,
+      fns,
+    }),
   }),
   {},
   keys(colors),

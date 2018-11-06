@@ -7,6 +7,7 @@ import {
   getScale,
   nameIsIncludedInArr,
   getFilteredFns,
+  propIsOfType,
 } from '../src/utils';
 
 describe('Utils', () => {
@@ -57,5 +58,13 @@ describe('Utils', () => {
         name: 'lighten',
       },
     ]);
+  });
+  it('propIsOfType', () => {
+    expect(propIsOfType('name', 'String')({ name: 123 })).toBe(false);
+    expect(propIsOfType('name', 'String')({ name: [] })).toBe(false);
+    expect(propIsOfType('name', 'String')({ name: {} })).toBe(false);
+    expect(propIsOfType('name', 'String')({ name: 'foo' })).toBe(true);
+    expect(propIsOfType('name', 'Array')({ name: [] })).toBe(true);
+    expect(propIsOfType('name', 'Object')({ name: {} })).toBe(true);
   });
 });

@@ -30,6 +30,10 @@ const baseColors = {
   red: '#ff0000',
   blue: 'rgb(0, 102, 204)',
   green: 'rgba(101, 218, 162, 0.9)',
+  foo: {
+    green: 'rgba(101, 218, 162, 0.9)',
+  },
+  bar: ['rgba(101, 218, 162, 0.9)'],
 };
 
 const colors = colorVariations(baseColors);
@@ -37,6 +41,9 @@ const colors = colorVariations(baseColors);
 console.log(colors.blackLighten[3]); // '#4d4d4d'
 console.log(colors.redTint[3]); // '#ff4c4c'
 console.log(colors.greenSaturate[3]); // 'rgba(72,247,163,0.9)'
+console.log(colors.foo.greenSaturate[3]); // 'rgba(72,247,163,0.9)'
+console.log(colors.bar.c0Saturate[3]); // 'rgba(72,247,163,0.9)'
+console.log(colors.bar.0); // 'rgba(101, 218, 162, 0.9)'
 ```
 
 ### node
@@ -78,11 +85,13 @@ Pass the options as an object for the second argument of `colorVariations`.
 
 ### includedFns
 
-The color functions included (all by default)
+The color functions included. By default: `['darken', 'lighten', 'saturate', 'desaturate', 'rgba', 'shade', 'tint']`.
+
+This options is useful is you want to include only a few variations functions.
 
 ### excludedFns
 
-The color functions excluded (no one by default)
+The color functions excluded. By default: `[]`
 
 ```js
 const baseColors = {
@@ -92,7 +101,8 @@ const baseColors = {
 };
 
 const opts = {
-  steps: 10,
+  steps: 5,
+  includedFns: ['darken', 'lighten', 'rgba'],
 };
 
 const colors = colorVariations(baseColors, opts);
@@ -103,7 +113,7 @@ const colors = colorVariations(baseColors, opts);
 - [x] Proper documentation
 - [x] Human testing
 - [x] Improve options (include only functions provided, exclude functions provided...)
-- [ ] Support for complex structures (objects of arrays of objects of...)
+- [x] Support for complex structures (objects of arrays of objects of...)
 - [ ] Move away from polished
 - [ ] Deal with collisions (having a color with name equals to a generated variation)
 - [ ] Exclude useless color variations like darken for black (with option)

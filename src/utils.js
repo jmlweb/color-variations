@@ -1,16 +1,25 @@
 import {
+  concat,
+  cond,
   contains,
   divide,
+  equals,
+  filter,
   flip,
   head,
+  identity,
+  ifElse,
+  lensProp,
+  map,
+  partial,
   pipe,
+  prop,
+  reject,
+  T,
   tail,
   toUpper,
-  map,
+  type,
   view,
-  lensProp,
-  filter,
-  reject,
 } from 'ramda';
 
 const nameLens = lensProp('name');
@@ -42,3 +51,31 @@ export const getFilteredFns = ({ includedFns, excludedFns }) => pipe(
   filter(nameIsIncludedInArr(includedFns)),
   reject(nameIsIncludedInArr(excludedFns)),
 );
+
+export const propIsOfType = (name, typeSearched) => pipe(
+  prop(name),
+  type,
+  equals(typeSearched),
+);
+
+export const prefixKeyIfNeeded = cond([
+  [
+    pipe(
+      parseFloat,
+      Number.isNaN,
+    ),
+    identity,
+  ],
+  [T, concat('c')],
+]);
+
+export const extractFnInCorrectOrder = ifElse(
+  prop('reversed'),
+  pipe(
+    prop('fn'),
+    flip,
+  ),
+  prop('fn'),
+);
+
+export const valueIsOfType = partial(propIsOfType, ['value']);
