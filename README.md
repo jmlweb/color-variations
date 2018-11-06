@@ -17,6 +17,8 @@ Create color variations for your theme with no pain.
 
 Based on [polished](https://polished.js.org) color transformation functions.
 
+[![Edit qv9xy5xokw](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/qv9xy5xokw)
+
 ## Getting started
 
 ### es6
