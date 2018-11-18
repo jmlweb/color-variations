@@ -1,12 +1,10 @@
-import expect from 'expect';
-
 import blackResults from './blackResults';
 import redResults from './redResults';
 import blueResults from './blueResults';
 import greenResults from './greenResults';
 import grayResults from './grayResults';
 import grayArrResults from './grayArrResults';
-import colorExtender, { buildSourceArr, generateColor } from '../src';
+import colorExtender, { buildSourceArr, generateColor } from '../src/main';
 import colorFns from '../src/colorFns';
 
 const black = '#000';

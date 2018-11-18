@@ -3,9 +3,14 @@
   "description": "Create color variations for your theme with no pain",
   "author": "José Manuel Lucas",
   "license": "MIT",
-  "version": "0.0.5",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "version": "0.0.6",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "umd": "dist/index.umd.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
   "homepage": "https://github.com/jmlweb/color-variations#readme",
   "repository": {
     "type": "git",
@@ -18,21 +23,11 @@
     "node": ">=8"
   },
   "scripts": {
-    "build": "nwb build-web-module",
-    "clean": "nwb clean-module",
-    "prepublishOnly": "npm run build",
-    "test": "nwb test",
-    "test:coverage": "nwb test --coverage",
-    "test:watch": "nwb test --server"
-  },
-  "files": [
-    "es",
-    "lib",
-    "umd"
-  ],
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "color",
@@ -42,12 +37,15 @@
   ],
   "dependencies": {
     "polished": "^2.3.0",
-    "ramda": "^0.25.0"
+    "ramda": "^0.26.0"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "nwb": "0.23.x"
+    "@types/jest": "^23.3.9",
+    "@types/ramda": "^0.25.42",
+    "jest": "^23.6.0",
+    "rollup": "^0.67.3",
+    "rollup-plugin-typescript2": "^0.18.0",
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6"
   }
 }

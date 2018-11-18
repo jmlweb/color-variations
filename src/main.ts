@@ -24,13 +24,17 @@ import {
   valueIsOfType,
 } from './utils';
 
-const DEFAULT_OPTS = {
+const DEFAULT_OPTS: {
+  steps: number,
+  includedFns: Array<any>,
+  excludedFns: Array<any>
+} = {
   steps: 10,
   includedFns: getNames(colorFns),
   excludedFns: [],
 };
 
-export const buildSourceArr = (steps) => {
+export const buildSourceArr = (steps: number) => {
   const scale = getScale(steps);
   return pipe(
     inc,
@@ -43,16 +47,16 @@ export const buildSourceArr = (steps) => {
   )(steps);
 };
 
-const getVariationValues = (fn, colorValue, steps) => {
+const getVariationValues = (fn: any, colorValue: string, steps: number) => {
   const partialedFn = partial(fn, [colorValue]);
   const sourceArr = buildSourceArr(steps);
   return map(partialedFn, sourceArr);
 };
 
-const getVariationsForColor = (colorKey, colorValue, steps, fns) => {
+const getVariationsForColor = (colorKey: string, colorValue: string, steps: number, fns: Array<any>) => {
   const cleanKey = prefixKeyIfNeeded(colorKey);
   return reduce(
-    (acc, curr) => {
+    (acc, curr: { name: string }) => {
       const fn = extractFnInCorrectOrder(curr);
       const colorVariationKey = `${cleanKey}${capitalize(curr.name)}`;
       return {
@@ -65,25 +69,25 @@ const getVariationsForColor = (colorKey, colorValue, steps, fns) => {
   );
 };
 
-export const generateColor = (props) => {
+export const generateColor = (props: any) => {
   const generateForString = ({
     name, value, steps, fns,
-  }) => ({
+  }: { name: string, value: string, steps: number, fns: Array<any> }) => ({
     [name]: value,
     ...getVariationsForColor(name, value, steps, fns),
   });
 
-  const generateForOther = ({ name, value }) => ({
+  const generateForOther = ({ name, value }: {  name: string, value: string }) => ({
     [name]: value,
   });
 
-  const generateForObject = ({
+  const generateForObject: any = ({
     name, value, steps, fns,
-  }) => ({
+  }: { name: string, value: string, steps: number, fns: Array<any> }) => ({
     [name]: pipe(
       keys,
       reduce(
-        (acc, curr) => ({
+        (acc, curr: any) => ({
           ...acc,
           ...generateColor({
             name: curr,
@@ -104,7 +108,7 @@ export const generateColor = (props) => {
   ])(props);
 };
 
-const generateColors = ({ colors, steps, fns }) => reduce(
+const generateColors = ({ colors, steps, fns }: { colors: {}, steps: number, fns: Array<any>}) => reduce(
   (acc, curr) => ({
     ...acc,
     ...generateColor({
@@ -118,7 +122,7 @@ const generateColors = ({ colors, steps, fns }) => reduce(
   keys(colors),
 );
 
-const colorExtender = (colors, opts = DEFAULT_OPTS) => {
+const colorExtender = (colors: {}, opts = DEFAULT_OPTS) => {
   const { includedFns, excludedFns, steps } = opts;
   const filteredFns = getFilteredFns({ includedFns, excludedFns })(colorFns);
   return generateColors({ colors, steps, fns: filteredFns });
