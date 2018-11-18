@@ -60,7 +60,7 @@ const colorVariations = require('color-variations');
 
 ```html
 <!-- Inject this script in your HTML -->
-<script src="https://unpkg.com/color-variations/umd/color-variations.min.js"></script>
+<script src="https://unpkg.com/color-variations/dist/index.umd.js"></script>
 ```
 
 The variable exported is called `colorVariations`.
