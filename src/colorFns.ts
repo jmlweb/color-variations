@@ -1,49 +1,56 @@
 import {
   darken,
-  lighten,
-  saturate,
   desaturate,
+  lighten,
   rgba,
+  saturate,
   shade,
-  tint
-} from "polished";
+  tint,
+} from 'polished';
+import { map, view } from 'ramda';
+import { nameLens } from './lenses';
+import { ColorFns, ColorFnsToFnsNames, FnsNames } from './types';
 
-const colorFns: Array<{ fn: Function, name: string, reversed: Boolean }> = [
+export const getNames: ColorFnsToFnsNames = map(view(nameLens));
+
+const colorFns: ColorFns = [
   {
     fn: rgba,
-    name: "rgba",
-    reversed: false
+    name: 'rgba',
+    reversed: false,
   },
   {
     fn: darken,
-    name: "darken",
-    reversed: true
+    name: 'darken',
+    reversed: true,
   },
   {
     fn: lighten,
-    name: "lighten",
-    reversed: true
+    name: 'lighten',
+    reversed: true,
   },
   {
     fn: saturate,
-    name: "saturate",
-    reversed: true
+    name: 'saturate',
+    reversed: true,
   },
   {
     fn: desaturate,
-    name: "desaturate",
-    reversed: true
+    name: 'desaturate',
+    reversed: true,
   },
   {
     fn: shade,
-    name: "shade",
-    reversed: true
+    name: 'shade',
+    reversed: true,
   },
   {
     fn: tint,
-    name: "tint",
-    reversed: true
-  }
+    name: 'tint',
+    reversed: true,
+  },
 ];
+
+export const colorFnsNames: FnsNames = getNames(colorFns);
 
 export default colorFns;

@@ -5,8 +5,10 @@
     "module": "es6",
     "noImplicitAny": true,
     "outDir": "./dist",
-    "target": "es5",
-    "lib": ["es2015"]
+    "sourceMap": true,
+    "target": "es6",
+    "esModuleInterop": true,
+    "diagnostics": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

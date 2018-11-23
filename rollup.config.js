@@ -1,7 +1,8 @@
+import progress from 'rollup-plugin-progress';
 import typescript from "rollup-plugin-typescript2";
-import visualizer from 'rollup-plugin-visualizer';
 import cleanup from 'rollup-plugin-cleanup';
-import butternut from 'rollup-plugin-butternut';
+import { sizeSnapshot } from "rollup-plugin-size-snapshot";
+import { plugin as analyze } from 'rollup-plugin-analyzer'
 import pkg from "./package.json";
 export default {
   input: "src/index.ts",
@@ -29,13 +30,16 @@ export default {
     ...Object.keys(pkg.peerDependencies || {})
   ],
   plugins: [
+    progress({
+      clearLine: false
+    }),
     typescript({
-      typescript: require("typescript")
+      typescript: require('typescript')
     }),
     cleanup(),
-    butternut(),
-    visualizer({
-      filename: './reports/stats.html'
-    })
+    analyze(),
+    sizeSnapshot({
+      snapshotPath: './reports/.size-snapshot.json'
+    }),
   ]
 };

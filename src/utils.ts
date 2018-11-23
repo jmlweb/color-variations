@@ -1,91 +1,73 @@
 import {
-  Lens,
+  both,
   concat,
-  cond,
   contains,
+  converge,
+  curry,
   divide,
-  equals,
-  filter,
   flip,
   head,
-  identity,
-  ifElse,
-  lensProp,
-  map,
+  is,
+  length,
+  lt,
   partial,
   pipe,
   prop,
-  reject,
-  T,
   tail,
   toUpper,
-  type,
-  view
-} from "ramda";
+  when,
+} from 'ramda';
+import {
+  Constructor,
+  ConstructorToObjectToBoolean,
+  NumberToNumberFn,
+  ObjectToBoolean,
+  StringToStringFn,
+} from './types';
 
-const nameLens: Lens = lensProp("name");
+export const reversedDivide: Function = flip(divide);
+export const reversedContains: Function = flip(contains);
 
-export const capitalize = (str: string) => `${toUpper(head(str))}${tail(str)}`;
-
-export const reversedDivide = flip(divide);
-
-export const reversedContains = flip(contains);
-
-export const getScale = pipe(
-  divide(100),
-  reversedDivide(100)
+export const toFixed: Function = curry(
+  (x: number | 0, v: number | 0): string => v.toFixed(x),
 );
 
-export const cleanDecimals = pipe(
-  (v: number) => v.toFixed(2),
-  parseFloat
+export const cleanDecimals: NumberToNumberFn = pipe(
+  toFixed(2),
+  parseFloat,
 );
 
-export const getNames = map(view(nameLens));
-
-export const nameIsIncludedInArr = (namesArr: Array<string>) =>
+const capitalizeFn: StringToStringFn = converge(concat, [
   pipe(
-    view(nameLens),
-    reversedContains(namesArr)
-  );
-
-export const getFilteredFns: Function = ({
-  includedFns,
-  excludedFns
-}: {
-  includedFns: Array<string>;
-  excludedFns: Array<string>;
-}) =>
-  pipe(
-    filter(nameIsIncludedInArr(includedFns)),
-    reject(nameIsIncludedInArr(excludedFns))
-  );
-
-export const propIsOfType = (name: string, typeSearched: string) =>
-  pipe(
-    prop(name),
-    type,
-    equals(typeSearched)
-  );
-
-export const prefixKeyIfNeeded = cond([
-  [
-    pipe(
-      parseFloat,
-      Number.isNaN
-    ),
-    identity
-  ],
-  [T, concat("c")]
+    head,
+    toUpper,
+  ),
+  tail,
 ]);
 
-export const extractFnInCorrectOrder = ifElse(
-  prop("reversed"),
-  pipe(
-    prop("fn"),
-    flip
+export const capitalize: StringToStringFn = when(
+  both(
+    is(String),
+    pipe(
+      length,
+      lt(1),
+    ),
   ),
-  prop("fn")
+  capitalizeFn,
 );
 
-export const valueIsOfType = partial(propIsOfType, ["value"]);
+export const propIs = (
+  name: string,
+  typeSearched: Constructor,
+): ObjectToBoolean =>
+  pipe(
+    prop(name),
+    is(typeSearched),
+  );
+
+export const valueIs: ConstructorToObjectToBoolean = partial(propIs, ['value']);
+
+export const buildScaleForSteps: NumberToNumberFn = pipe(
+  divide(100),
+  reversedDivide(100),
+);
