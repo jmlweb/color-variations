@@ -123,7 +123,7 @@ export const generateColorVariations = (
     value,
     steps,
     fns,
-  }: ParamsObject): { [propName: string]: object } =>
+  }: Params): { [propName: string]: object } =>
     objOf(
       name,
       pipe(
